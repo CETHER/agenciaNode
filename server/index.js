@@ -30,9 +30,11 @@ app.locals.titulo = config.nombresitio;
 
 // Muestra el año acutal en footer
 app.use((req, res, next) => {
-  //crear una nueva fecha
+  //crear una nueva fecha y genera la ruta
   const fecha = new Date();
   res.locals.fechaActual = fecha.getFullYear();
+  res.locals.ruta = req.path;
+  console.log(res.locals.ruta);
   return next();
 })
 

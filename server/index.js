@@ -34,7 +34,6 @@ app.use((req, res, next) => {
   const fecha = new Date();
   res.locals.fechaActual = fecha.getFullYear();
   res.locals.ruta = req.path;
-  console.log(res.locals.ruta);
   return next();
 })
 

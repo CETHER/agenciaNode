@@ -1,15 +1,14 @@
 const Testimonial = require('../models/Testimoniales');
 
-exports.mostrarTestimoniales = (req, res) => {
-  Testimonial.findAll()
-    .then(testimoniales => res.render('testimoniales', {
+exports.mostrarTestimoniales = async (req, res) => {
+  const testimoniales = await Testimonial.findAll();
+    res.render('testimoniales', {
       pagina: 'Testimoniales',
       testimoniales
-    }))
-    .catch(error => console.log(error))
+    });
 }
 
-exports.guardarTestimonial = (req, res) => {
+exports.guardarTestimonial = async (req, res) => {
   //validar que todos los campo estén llenos
   let {nombre, correo, mensaje} = req.body;
 
@@ -34,12 +33,11 @@ exports.guardarTestimonial = (req, res) => {
     })
   } else {
     // guarda en la base de datos
-    Testimonial.create({
+    const testimonial = await Testimonial.create({
       nombre, 
       correo, 
       mensaje
-    })
-      .then(testimonial => res.redirect('/testimoniales'))
-      .catch(error => console.log(error))
+    });
+    res.redirect('/testimoniales');
   }
 }
